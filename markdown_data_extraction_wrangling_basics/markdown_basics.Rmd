@@ -1,0 +1,68 @@
+---
+title: "An Introduction to R Markdown and Data Extraction Using R"
+author: "Fadel Megahed"
+date: "`r format(Sys.Date(), '%B %d, %Y')`"
+output: 
+  html_document:
+    code_download: TRUE
+    code_folding: show
+    number_sections: TRUE
+    theme: simplex
+    toc: TRUE
+    toc_float: TRUE
+  pdf_document:
+    number_sections: TRUE
+    toc: TRUE
+bibliography: refs.bib 
+csl: "american-journal-of-epidemiology.csl"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      message = FALSE,
+                      warning = FALSE,
+                      verbose = FALSE,
+                      cache = TRUE,
+                      dpi = 300,
+                      dev = c('png', 'postscript', 'tiff'),
+                      out.width = '100%')
+```
+
+# Packages and Installation
+
+```{r packages}
+if(require(pacman) == FALSE) install.packages('pacman')
+pacman::p_load(tidyverse, magrittr, rvest, lubridate)
+```
+
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown [@megahed2015statistical].
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r pressure, echo=FALSE}
+plot(pressure)
+```
+
+
+
+# References {-}
+<div id="refs"></div>
+
+
+# Appendix
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+
+
