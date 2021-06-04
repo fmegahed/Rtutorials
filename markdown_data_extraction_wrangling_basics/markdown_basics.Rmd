@@ -36,24 +36,44 @@ pacman::p_load(tidyverse, magrittr, rvest, lubridate)
 ```
 
 
-## R Markdown
+# Extracting Data in R
 
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown [@megahed2015statistical].
+## From a CSV File Online
 
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+### Apple's Mobility Data
 
-```{r cars}
-summary(cars)
+1. Go to <https://covid19.apple.com/mobility>.  
+2. Right Click on the "All Data CSV Button" and then click on "inspect".  
+3. It will bring you close to the 'csv link' and you will need to find it by going up/down the inspector gadget (you will be close) and look for HTML code that contains <a href>.  Based on `r format(Sys.Date(), '%B %d, %Y')`, the link was <https://covid19-static.cdn-apple.com/covid19-mobility-data/2109HotfixDev13/v3/en-us/applemobilitytrends-2021-06-02.csv>.
+
+```{r appleData}
+appleMobility = read.csv('https://covid19-static.cdn-apple.com/covid19-mobility-data/2109HotfixDev13/v3/en-us/applemobilitytrends-2021-06-02.csv')
+
 ```
 
-## Including Plots
 
-You can also embed plots, for example:
 
-```{r pr, echo=FALSE}
-plot(pressure)
+### GitHub
+Once you have identified the dataset/repo, you are interested in. Click on 'Raw' and you will have the link you will need.  
+
+1. For example, if you want to read [this file](https://github.com/owid/covid-19-data/blob/master/public/data/vaccinations/us_state_vaccinations.csv).  
+2. Click on Raw and you will find the link to be updated to the link in the code below.
+
+```{r vaccines}
+vaccines = read.csv("https://raw.githubusercontent.com/owid/covid-19-data/master/public/data/vaccinations/us_state_vaccinations.csv")
 ```
 
+
+
+### Wikipedia Tables
+
+```{r scrapeData}
+wikiURL = 'https://en.wikipedia.org/w/index.php?title=COVID-19&oldid=1026813774'
+
+wikiURL %>% read_html() %>% html_nodes("table.wikitable > tbody") %>% html_table() -> wikiTables
+
+wikiTables[[1]]
+```
 
 
 # References {-}
